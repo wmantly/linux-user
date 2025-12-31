@@ -1,12 +1,10 @@
 # linux-user
 
+Node.js module for Linux user and group management.
 
-Node module for Linux user and group control.
+Easily manage Linux users and groups with a simple API. Full promise and `async/await` support out of the box, ES5 compatibility, and **zero dependencies**!
 
-Use Node to manage Linux user easily. All APIs do what you think. Promise and 
-`async\await` out of the box. ES5 support! **Zero dependences!**
-
-**The module must be running on Linux and as root user !**
+> ⚠️ **Note**: This module must be running on Linux and requires root user privileges for most operations.
 
 [![NPM](https://nodei.co/npm/linux-sys-user.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/linux-sys-user/)
 

@@ -1,7 +1,7 @@
 {
   "name": "linux-sys-user",
-  "version": "1.1.9",
-  "description": "Node module for Linux user and group control.",
+  "version": "1.2.0",
+  "description": "Node.js module for Linux user and group management with zero dependencies",
   "author": [
     {
       "name": "William Mantly",
@@ -28,11 +28,20 @@
     "pam",
     "ssh-keygen",
     "ssh",
-    "keys"
+    "ts",
+    "typescript",
+    "system-administration",
+    "linux-users",
+    "linux-groups"
   ],
   "scripts": {
     "test": "mocha",
-    "test-coverage": "nyc mocha"
+    "test-coverage": "nyc mocha",
+    "lint": "jshint lib/ test/",
+    "lint:fix": "jshint lib/ test/ --fix"
+  },
+  "engines": {
+    "node": ">=6.0.0"
   },
   "devDependencies": {
     "jshint": "^2.13.4",
@@ -44,5 +53,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/wmantly/linux-user.git"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/wmantly/linux-user/issues"
+  },
+  "homepage": "https://github.com/wmantly/linux-user#readme"
 }

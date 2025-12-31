@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examples - linux-sys-user</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        header h1 {
+            font-size: 1.8rem;
+            font-weight: 300;
+        }
+        
+        .nav {
+            background: #34495e;
+            padding: 0.5rem 0;
+        }
+        
+        .nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        .nav li {
+            margin-right: 2rem;
+        }
+        
+        .nav a {
+            color: #ecf0f1;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+        
+        .nav a:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .nav a.active {
+            background: #3498db;
+        }
+        
+        main {
+            padding: 2rem 0;
+        }
+        
+        .example-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .example-section h2 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #3498db;
+        }
+        
+        .example {
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .example h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+        
+        .example-description {
+            margin-bottom: 1rem;
+            color: #555;
+        }
+        
+        .code-example {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 1.5rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 0.9rem;
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 1rem;
+        }
+        
+        .tab {
+            background: #ecf0f1;
+            color: #7f8c8d;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px 4px 0 0;
+            cursor: pointer;
+            margin-right: 0.5rem;
+            transition: all 0.3s;
+        }
+        
+        .tab.active {
+            background: #3498db;
+            color: white;
+        }
+        
+        .tab:hover {
+            background: #bdc3c7;
+        }
+        
+        .tab.active:hover {
+            background: #3498db;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+        
+        .warning::before {
+            content: "⚠️ ";
+            font-weight: bold;
+        }
+        
+        .note {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+        
+        .note::before {
+            content: "ℹ️ ";
+            font-weight: bold;
+        }
+        
+        .success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+        
+        .success::before {
+            content: "✅ ";
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>linux-sys-user</h1>
+        </div>
+    </header>
+    
+    <nav class="nav">
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="api.html">API Reference</a></li>
+                <li><a href="examples.html" class="active">Examples</a></li>
+                <li><a href="installation.html">Installation</a></li>
+                <li><a href="https://github.com/wmantly/linux-user" target="_blank">GitHub</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <main class="container">
+        <div class="example-section">
+            <h2>User Management Examples</h2>
+            
+            <div class="example">
+                <h3>Creating Users</h3>
+                <div class="example-description">
+                    Different ways to create users with various configuration options.
+                </div>
+                
+                <div class="tabs">
+                    <button class="tab active" onclick="showTab(event, 'callback1')">Callbacks</button>
+                    <button class="tab" onclick="showTab(event, 'promise1')">Promises</button>
+                    <button class="tab" onclick="showTab(event, 'async1')">Async/Await</button>
+                </div>
+                
+                <div id="callback1" class="tab-content active">
+                    <div class="code-example">
+<pre>var linuxUser = require('linux-sys-user');
+
+// Simple user creation
+linuxUser.addUser("john_doe", function (err, user) {
+  if (err) {
+    console.error('Error creating user:', err);
+    return;
+  }
+  console.log('User created:', user);
+});
+
+// Advanced user creation
+linuxUser.addUser({
+  username: "jane_smith",
+  create_home: true,
+  shell: "/bin/bash",
+  home_dir: "/home/users/jane",
+  expiredate: "2024-12-31",
+  system: false,
+  skel: "/etc/skel"
+}, function (err, user) {
+  if (err) {
+    console.error('Error creating user:', err);
+    return;
+  }
+  console.log('User created with custom settings:', user);
+});</pre>
+                    </div>
+                </div>
+                
+                <div id="promise1" class="tab-content">
+                    <div class="code-example">
+<pre>var linuxUserPromise = require('linux-sys-user').promise();
+
+// Simple user creation
+linuxUserPromise.addUser("john_doe")
+  .then(user => console.log('User created:', user))
+  .catch(err => console.error('Error:', err));
+
+// Advanced user creation
+linuxUserPromise.addUser({
+  username: "jane_smith",
+  create_home: true,
+  shell: "/bin/bash",
+  home_dir: "/home/users/jane",
+  expiredate: "2024-12-31",
+  system: false
+}).then(user => {
+  console.log('User created with custom settings:', user);
+}).catch(err => {
+  console.error('Error creating user:', err);
+});</pre>
+                    </div>
+                </div>
+                
+                <div id="async1" class="tab-content">
+                    <div class="code-example">
+<pre>var linuxUserPromise = require('linux-sys-user').promise();
+
+async function createUsers() {
+  try {
+    // Simple user creation
+    const user1 = await linuxUserPromise.addUser("john_doe");
+    console.log('User created:', user1);
+    
+    // Advanced user creation
+    const user2 = await linuxUserPromise.addUser({
+      username: "jane_smith",
+      create_home: true,
+      shell: "/bin/bash",
+      home_dir: "/home/users/jane",
+      expiredate: "2024-12-31",
+      system: false
+    });
+    console.log('User created with custom settings:', user2);
+    
+  } catch (err) {
+    console.error('Error creating users:', err);
+  }
+}
+
+createUsers();</pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="example">
+                <h3>Getting User Information</h3>
+                <div class="example-description">
+                    Retrieve user details and group memberships.
+                </div>
+                
+                <div class="code-example">
+<pre>// Get all users
+linuxUser.getUsers(function (err, users) {
+  if (err) {
+    console.error('Error getting users:', err);
+    return;
+  }
+  console.log('All users:', users);
+  console.log('Total users:', users.length);
+});
+
+// Get specific user info
+linuxUser.getUserInfo("john_doe", function (err, user) {
+  if (err) {
+    console.error('Error getting user info:', err);
+    return;
+  }
+  if (!user) {
+    console.log('User not found');
+    return;
+  }
+  console.log('User info:', user);
+});
+
+// Get user groups
+linuxUser.getUserGroups("john_doe", function (err, groups) {
+  if (err) {
+    console.error('Error getting user groups:', err);
+    return;
+  }
+  console.log('User groups:', groups);
+});</pre>
+                </div>
+            </div>
+            
+            <div class="example">
+                <h3>User Lifecycle Management</h3>
+                <div class="example-description">
+                    Complete user lifecycle from creation to removal.
+                </div>
+                
+                <div class="code-example">
+<pre>var testUser = "temp_user_" + Date.now();
+
+async function userLifecycle() {
+  try {
+    // Create user
+    const user = await linuxUserPromise.addUser({
+      username: testUser,
+      create_home: true,
+      shell: "/bin/bash"
+    });
+    console.log('User created:', user);
+    
+    // Set password
+    await linuxUserPromise.setPassword(testUser, "TempPass123!");
+    console.log('Password set');
+    
+    // Get user info
+    const userInfo = await linuxUserPromise.getUserInfo(testUser);
+    console.log('User info retrieved:', userInfo);
+    
+    // Get user groups
+    const groups = await linuxUserPromise.getUserGroups(testUser);
+    console.log('User groups:', groups);
+    
+    // Clean up - remove user
+    await linuxUserPromise.removeUser(testUser);
+    console.log('User removed');
+    
+  } catch (err) {
+    console.error('Error in user lifecycle:', err);
+  }
+}
+
+userLifecycle();</pre>
+                </div>
+                
+                <div class="warning">
+                    <strong>Warning:</strong> The removeUser operation is irreversible and will delete the user's home directory and mail spool.
+                </div>
+            </div>
+        </div>
+        
+        <div class="example-section">
+            <h2>Group Management Examples</h2>
+            
+            <div class="example">
+                <h3>Creating and Managing Groups</h3>
+                <div class="example-description">
+                    Create groups and manage group memberships.
+                </div>
+                
+                <div class="code-example">
+<pre>// Create a group
+linuxUser.addGroup("developers", function (err, group) {
+  if (err) {
+    console.error('Error creating group:', err);
+    return;
+  }
+  console.log('Group created:', group);
+});
+
+// Add user to group
+linuxUser.addUserToGroup("john_doe", "developers", function (err) {
+  if (err) {
+    console.error('Error adding user to group:', err);
+    return;
+  }
+  console.log('User added to group');
+});
+
+// Get all groups
+linuxUser.getGroups(function (err, groups) {
+  if (err) {
+    console.error('Error getting groups:', err);
+    return;
+  }
+  console.log('All groups:', groups);
+});
+
+// Get specific group info
+linuxUser.getGroupInfo("developers", function (err, group) {
+  if (err) {
+    console.error('Error getting group info:', err);
+    return;
+  }
+  console.log('Group info:', group);
+});</pre>
+                </div>
+            </div>
+        </div>
+        
+        <div class="example-section">
+            <h2>Security Examples</h2>
+            
+            <div class="example">
+                <h3>SSH Key Management</h3>
+                <div class="example-description">
+                    Manage SSH keys for secure authentication.
+                </div>
+                
+                <div class="code-example">
+<pre>var sshKey = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDBqDmHHhV9HHCY0Rvp6by4N1aBsnjreWKIPaO2UHCURzJk8Sa92jXEfNXpQ1H36yJmirCB+q6XRCKq27ah5M86fCKsm+UfbPlD/X81YH+RnnYgGyh7nwk+llvLKdrzFnF7aHG5/WShj5YUzZO9McIPxyrU1GmMnxEynHp4qSsnmKNJZT2KtpGlP/cvOktNjRWO1hAY8mXG9VShSpqLYWU/AbTV4hZZ2Pr/FdRZq59oRcm9ZGfd13ZMJcPlfhTCeslJfWNx2cuMTSLXRN76MtCmWsPKuVNY6Hj/ILL7JQe8DIxu9AAMiUqFadfFHRGO9dzCh8fKi5lpSMsDKqHHysb504p2ogHDzOUpc/remX3exnvDK1245JXYlNtUkXIexVl+u871PDNbOhx4lSa1nGJGiJCJLW7FlL5mEPrvlgeWaxGihi66redtcPWGVuy2dYytYoI8JanpGlEGFkTOIaKSvDH0ratOxRSlP/Eraxs7w3uVaRvF7/iC348CI63l7T8= user@hostname";
+
+// Verify SSH key
+linuxUser.verifySSHKey(sshKey, function (err, keyInfo) {
+  if (err) {
+    console.error('Invalid SSH key:', err);
+    return;
+  }
+  console.log('SSH key info:', keyInfo);
+});
+
+// Add SSH key to user
+linuxUser.addSSHtoUser("john_doe", sshKey, function (err, success) {
+  if (err) {
+    console.error('Error adding SSH key:', err);
+    return;
+  }
+  console.log('SSH key added successfully');
+});</pre>
+                </div>
+                
+                <div class="note">
+                    <strong>Note:</strong> The addSSHtoUser method automatically creates the .ssh directory with proper permissions (700) and sets the authorized_keys file permissions to 600.
+                </div>
+            </div>
+            
+            <div class="example">
+                <h3>Password Management</h3>
+                <div class="example-description">
+                    Secure password handling and management.
+                </div>
+                
+                <div class="code-example">
+<pre>// Set user password
+linuxUser.setPassword("john_doe", "SecurePassword123!", function (err) {
+  if (err) {
+    console.error('Error setting password:', err);
+    return;
+  }
+  console.log('Password set successfully');
+});
+
+// Using promises
+async function setUserPassword() {
+  try {
+    await linuxUserPromise.setPassword("john_doe", "SecurePassword123!");
+    console.log('Password set successfully');
+  } catch (err) {
+    console.error('Error setting password:', err);
+  }
+}
+
+setUserPassword();</pre>
+                </div>
+                
+                <div class="warning">
+                    <strong>Security Note:</strong> Always use strong passwords and follow your organization's password policies. Consider using password generators or policy enforcement tools.
+                </div>
+            </div>
+        </div>
+        
+        <div class="example-section">
+            <h2>Advanced Examples</h2>
+            
+            <div class="example">
+                <h3>User Expiration Management</h3>
+                <div class="example-description">
+                    Manage user account and password expiration policies.
+                </div>
+                
+                <div class="code-example">
+<pre>// Get user expiration info
+linuxUser.getExpiration("john_doe", function (err, data) {
+  if (err) {
+    console.error('Error getting expiration:', err);
+    return;
+  }
+  console.log('Expiration data:', data);
+});
+
+// Set user expiration
+linuxUser.setExpiration("john_doe", {
+  lastday: '2024-01-01',     // Force password change on next login
+  expiredate: '2024-12-31',   // Account expires on this date
+  inactive: 30,               // 30 days after password expiry
+  minDays: 1,                 // Minimum days between password changes
+  maxDays: 90,                // Password expires after 90 days
+  warnDays: 7                 // Warn 7 days before expiry
+}, function (err) {
+  if (err) {
+    console.error('Error setting expiration:', err);
+    return;
+  }
+  console.log('Expiration policy set');
+});
+
+// Using promises and async/await
+async function manageUserExpiration() {
+  try {
+    // Get current expiration
+    const current = await linuxUserPromise.getExpiration("john_doe");
+    console.log('Current expiration:', current);
+    
+    // Set new expiration policy
+    await linuxUserPromise.setExpiration("john_doe", {
+      maxDays: 60,        // 60-day password policy
+      warnDays: 5,        // Warn 5 days before expiry
+      inactive: -1        // Remove inactivity policy
+    });
+    
+    console.log('Expiration policy updated');
+    
+  } catch (err) {
+    console.error('Error managing expiration:', err);
+  }
+}
+
+manageUserExpiration();</pre>
+                </div>
+            </div>
+            
+            <div class="example">
+                <h3>Batch User Creation</h3>
+                <div class="example-description">
+                    Create multiple users efficiently with error handling.
+                </div>
+                
+                <div class="code-example">
+<pre>async function createBatchUsers() {
+  const users = [
+    { username: "user1", create_home: true, shell: "/bin/bash" },
+    { username: "user2", create_home: true, shell: "/bin/bash" },
+    { username: "user3", create_home: false, shell: "/usr/sbin/nologin" }
+  ];
+  
+  const results = [];
+  
+  for (const userConfig of users) {
+    try {
+      const user = await linuxUserPromise.addUser(userConfig);
+      results.push({ success: true, user: user });
+      console.log(`User ${userConfig.username} created successfully`);
+    } catch (err) {
+      results.push({ success: false, username: userConfig.username, error: err });
+      console.error(`Error creating user ${userConfig.username}:`, err);
+    }
+  }
+  
+  // Summary
+  const successful = results.filter(r => r.success);
+  const failed = results.filter(r => !r.success);
+  
+  console.log(`Batch complete: ${successful.length} created, ${failed.length} failed`);
+  
+  return results;
+}
+
+createBatchUsers();</pre>
+                </div>
+            </div>
+            
+            <div class="example">
+                <h3>System Audit Script</h3>
+                <div class="example-description">
+                    Complete system audit for user management.
+                </div>
+                
+                <div class="code-example">
+<pre>async function systemAudit() {
+  try {
+    console.log('Starting system audit...');
+    
+    // Get all users and groups
+    const [users, groups] = await Promise.all([
+      linuxUserPromise.getUsers(),
+      linuxUserPromise.getGroups()
+    ]);
+    
+    console.log(`\nSystem Overview:`);
+    console.log(`- Total users: ${users.length}`);
+    console.log(`- Total groups: ${groups.length}`);
+    
+    // Audit user accounts
+    console.log('\nUser Account Audit:');
+    const auditPromises = users.slice(0, 5).map(async (user) => {
+      try {
+        const expiration = await linuxUserPromise.getExpiration(user.username);
+        const groups = await linuxUserPromise.getUserGroups(user.username);
+        
+        return {
+          username: user.username,
+          uid: user.uid,
+          shell: user.shell,
+          hasHome: user.homedir !== '/',
+          groups: groups,
+          passwordAge: expiration.maxDays,
+          daysUntilExpiry: expiration.accountExpires ? 
+            Math.ceil((new Date(expiration.accountExpires) - new Date()) / (1000 * 60 * 60 * 24)) : 
+            'Never'
+        };
+      } catch (err) {
+        return { username: user.username, error: err.message };
+      }
+    });
+    
+    const auditResults = await Promise.all(auditPromises);
+    
+    console.log('\nDetailed User Information:');
+    auditResults.forEach(result => {
+      if (result.error) {
+        console.log(`  ${result.username}: Error - ${result.error}`);
+      } else {
+        console.log(`  ${result.username}:`);
+        console.log(`    UID: ${result.uid}, Shell: ${result.shell}`);
+        console.log(`    Home directory: ${result.hasHome ? 'Yes' : 'No'}`);
+        console.log(`    Groups: [${result.groups.join(', ')}]`);
+        console.log(`    Password expires: ${result.daysUntilExpiry} days`);
+      }
+    });
+    
+    console.log('\nAudit complete!');
+    
+  } catch (err) {
+    console.error('Audit failed:', err);
+  }
+}
+
+systemAudit();</pre>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <script>
+        function showTab(event, tabId) {
+            // Hide all tab contents
+            var tabContents = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+            }
+            
+            // Remove active class from all tabs
+            var tabs = document.getElementsByClassName("tab");
+            for (var i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove("active");
+            }
+            
+            // Show selected tab content and mark tab as active
+            document.getElementById(tabId).classList.add("active");
+            event.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+</html>
