@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Installation - linux-sys-user</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        header h1 {
+            font-size: 1.8rem;
+            font-weight: 300;
+        }
+        
+        .nav {
+            background: #34495e;
+            padding: 0.5rem 0;
+        }
+        
+        .nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        .nav li {
+            margin-right: 2rem;
+        }
+        
+        .nav a {
+            color: #ecf0f1;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+        
+        .nav a:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .nav a.active {
+            background: #3498db;
+        }
+        
+        main {
+            padding: 2rem 0;
+        }
+        
+        .install-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .install-section h2 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #3498db;
+        }
+        
+        .requirement {
+            background: #f8f9fa;
+            border-left: 4px solid #e74c3c;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .code-example {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 1.5rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 0.9rem;
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 1rem;
+        }
+        
+        .tab {
+            background: #ecf0f1;
+            color: #7f8c8d;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px 4px 0 0;
+            cursor: pointer;
+            margin-right: 0.5rem;
+            transition: all 0.3s;
+        }
+        
+        .tab.active {
+            background: #3498db;
+            color: white;
+        }
+        
+        .tab:hover {
+            background: #bdc3c7;
+        }
+        
+        .tab.active:hover {
+            background: #3498db;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+        
+        .warning::before {
+            content: "⚠️ ";
+            font-weight: bold;
+        }
+        
+        .note {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+        
+        .note::before {
+            content: "ℹ️ ";
+            font-weight: bold;
+        }
+        
+        .success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+        
+        .success::before {
+            content: "✅ ";
+            font-weight: bold;
+        }
+        
+        .step {
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .step h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+        
+        .checklist {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .checklist li {
+            padding: 0.5rem 0;
+            color: #555;
+        }
+        
+        .checklist li::before {
+            content: "✓";
+            color: #27ae60;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>linux-sys-user</h1>
+        </div>
+    </header>
+    
+    <nav class="nav">
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="api.html">API Reference</a></li>
+                <li><a href="examples.html">Examples</a></li>
+                <li><a href="installation.html" class="active">Installation</a></li>
+                <li><a href="https://github.com/wmantly/linux-user" target="_blank">GitHub</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <main class="container">
+        <div class="install-section">
+            <h2>System Requirements</h2>
+            
+            <div class="requirement">
+                <h3>⚠️ Important Prerequisites</h3>
+                <p>Before installing linux-sys-user, ensure your system meets these requirements:</p>
+                
+                <ul class="checklist">
+                    <li><strong>Operating System:</strong> Linux (any distribution)</li>
+                    <li><strong>Node.js:</strong> Version 6.0.0 or higher</li>
+                    <li><strong>Privileges:</strong> Root access for most operations</li>
+                    <li><strong>System Commands:</strong> useradd, userdel, groupadd, groupdel, usermod, passwd, chage, ssh-keygen</li>
+                </ul>
+            </div>
+            
+            <div class="code-example">
+<pre># Check your Node.js version
+node --version
+
+# Check if you're running as root
+whoami
+
+# Verify required commands are available
+which useradd userdel groupadd groupdel usermod passwd chage ssh-keygen</pre>
+            </div>
+        </div>
+        
+        <div class="install-section">
+            <h2>Installation Methods</h2>
+            
+            <div class="step">
+                <h3>Method 1: npm (Recommended)</h3>
+                <p>The easiest way to install linux-sys-user is using npm:</p>
+                
+                <div class="tabs">
+                    <button class="tab active" onclick="showTab(event, 'npm-install')">npm install</button>
+                    <button class="tab" onclick="showTab(event, 'yarn-install')">Yarn</button>
+                    <button class="tab" onclick="showTab(event, 'pnpm-install')">pnpm</button>
+                </div>
+                
+                <div id="npm-install" class="tab-content active">
+                    <div class="code-example">
+<pre># Install as a dependency
+npm install linux-sys-user --save
+
+# Install globally (for CLI usage)
+npm install -g linux-sys-user
+
+# Install with specific version
+npm install linux-sys-user@1.2.0 --save</pre>
+                    </div>
+                </div>
+                
+                <div id="yarn-install" class="tab-content">
+                    <div class="code-example">
+<pre># Install as a dependency
+yarn add linux-sys-user
+
+# Install globally
+yarn global add linux-sys-user</pre>
+                    </div>
+                </div>
+                
+                <div id="pnpm-install" class="tab-content">
+                    <div class="code-example">
+<pre># Install as a dependency
+pnpm add linux-sys-user
+
+# Install globally
+pnpm add -g linux-sys-user</pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="step">
+                <h3>Method 2: Manual Installation</h3>
+                <p>For development or custom setups:</p>
+                
+                <div class="code-example">
+<pre># Clone the repository
+git clone https://github.com/wmantly/linux-user.git
+cd linux-user
+
+# Install dependencies
+npm install
+
+# Link globally (optional)
+npm link</pre>
+                </div>
+            </div>
+            
+            <div class="step">
+                <h3>Method 3: Docker</h3>
+                <p>Use in a containerized environment:</p>
+                
+                <div class="code-example">
+<pre># Build from Dockerfile
+docker build -t linux-sys-user .
+
+# Run with privileges
+docker run --privileged -v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro linux-sys-user</pre>
+                </div>
+                
+                <div class="note">
+                    <strong>Note:</strong> Docker usage requires careful consideration of security implications when dealing with system user management.
+                </div>
+            </div>
+        </div>
+        
+        <div class="install-section">
+            <h2>Setup & Configuration</h2>
+            
+            <div class="step">
+                <h3>Basic Setup</h3>
+                <p>Start using linux-sys-user in your project:</p>
+                
+                <div class="code-example">
+<pre>// In your JavaScript/Node.js file
+var linuxUser = require('linux-sys-user');
+
+// Test the installation
+linuxUser.getUsers(function (err, users) {
+  if (err) {
+    console.error('Error:', err);
+  } else {
+    console.log('Installation successful! Found', users.length, 'users');
+  }
+});</pre>
+                </div>
+            </div>
+            
+            <div class="step">
+                <h3>Promise Support Setup</h3>
+                <p>Enable promise-based API usage:</p>
+                
+                <div class="code-example">
+<pre>// Get promise-based API
+var linuxUserPromise = require('linux-sys-user').promise();
+
+// Use with async/await
+async function example() {
+  try {
+    const users = await linuxUserPromise.getUsers();
+    console.log('Users:', users);
+  } catch (err) {
+    console.error('Error:', err);
+  }
+}</pre>
+                </div>
+            </div>
+            
+            <div class="step">
+                <h3>TypeScript Support</h3>
+                <p>TypeScript definitions are included automatically:</p>
+                
+                <div class="code-example">
+<pre>import LinuxUser, { UserInfo, UserCreationArgs } from 'linux-sys-user';
+
+// TypeScript will provide autocompletion and type checking
+const config: UserCreationArgs = {
+  username: "test_user",
+  create_home: true,
+  shell: "/bin/bash"
+};
+
+LinuxUser.addUser(config, (err, user: UserInfo | null) => {
+  if (err) {
+    console.error('Error:', err);
+  } else {
+    console.log('User created:', user);
+  }
+});</pre>
+                </div>
+            </div>
+        </div>
+        
+        <div class="install-section">
+            <h2>Verification & Testing</h2>
+            
+            <div class="step">
+                <h3>Verify Installation</h3>
+                <p>Test that everything is working correctly:</p>
+                
+                <div class="code-example">
+<pre>// test-installation.js
+var linuxUser = require('linux-sys-user');
+
+console.log('Testing linux-sys-user installation...\n');
+
+// Test 1: Username validation
+console.log('1. Testing username validation:');
+console.log('  Valid username "test_user":', linuxUser.validateUsername('test_user'));
+console.log('  Invalid username "$invalid":', linuxUser.validateUsername('$invalid'));
+
+// Test 2: Get users (should work without root)
+console.log('\n2. Testing getUsers:');
+linuxUser.getUsers(function (err, users) {
+  if (err) {
+    console.log('  Error:', err.message);
+  } else {
+    console.log('  Success! Found', users.length, 'users');
+    console.log('  First user:', users[0].username);
+  }
+});
+
+// Test 3: Promise support
+console.log('\n3. Testing promise support:');
+var linuxUserPromise = require('linux-sys-user').promise();
+linuxUserPromise.getUsers()
+  .then(users => console.log('  Promise test successful!'))
+  .catch(err => console.log('  Promise test error:', err.message));
+
+console.log('\nInstallation test completed!');</pre>
+                </div>
+                
+                <div class="code-example">
+<pre># Run the test
+node test-installation.js</pre>
+                </div>
+            </div>
+            
+            <div class="step">
+                <h3>Run Official Tests</h3>
+                <p>Run the project's test suite to ensure everything works:</p>
+                
+                <div class="code-example">
+<pre># Run tests
+npm test
+
+# Run tests with coverage
+npm run test-coverage
+
+# Run linting
+npm run lint</pre>
+                </div>
+                
+                <div class="warning">
+                    <strong>Note:</strong> Some tests require root privileges and may fail if not run as root. This is expected behavior.
+                </div>
+            </div>
+        </div>
+        
+        <div class="install-section">
+            <h2>Troubleshooting</h2>
+            
+            <div class="step">
+                <h3>Common Issues</h3>
+                
+                <h4>Permission Denied Errors</h4>
+                <div class="warning">
+                    <strong>Issue:</strong> "Permission denied" when creating users<br>
+                    <strong>Solution:</strong> Run your script as root or with sudo
+                </div>
+                <div class="code-example">
+<pre>sudo node your-script.js</pre>
+                </div>
+                
+                <h4>Command Not Found Errors</h4>
+                <div class="warning">
+                    <strong>Issue:</strong> "useradd: command not found"<br>
+                    <strong>Solution:</strong> Install shadow-utils or passwd packages
+                </div>
+                <div class="code-example">
+<pre># Ubuntu/Debian
+sudo apt-get install shadow-utils
+
+# CentOS/RHEL/Fedora
+sudo yum install shadow-utils
+# or
+sudo dnf install shadow-utils</pre>
+                </div>
+                
+                <h4>Module Not Found</h4>
+                <div class="warning">
+                    <strong>Issue:</strong> "Cannot find module 'linux-sys-user'"<br>
+                    <strong>Solution:</strong> Reinstall the module
+                </div>
+                <div class="code-example">
+<pre>npm uninstall linux-sys-user
+npm install linux-sys-user --save</pre>
+                </div>
+                
+                <h4>Platform Not Supported</h4>
+                <div class="warning">
+                    <strong>Issue:</strong> "linux-user must be running on Linux"<br>
+                    <strong>Solution:</strong> This module only works on Linux systems
+                </div>
+            </div>
+            
+            <div class="step">
+                <h3>Getting Help</h3>
+                
+                <div class="note">
+                    <strong>Need help?</strong> Here are resources for getting support:
+                </div>
+                
+                <ul class="checklist">
+                    <li><strong>Documentation:</strong> Check the <a href="api.html">API Reference</a> and <a href="examples.html">Examples</a></li>
+                    <li><strong>GitHub Issues:</strong> <a href="https://github.com/wmantly/linux-user/issues" target="_blank">Report bugs or request features</a></li>
+                    <li><strong>Stack Overflow:</strong> Tag your question with 'linux-sys-user'</li>
+                    <li><strong>GitHub Discussions:</strong> Join community discussions</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="install-section">
+            <h2>Production Deployment</h2>
+            
+            <div class="step">
+                <h3>Security Considerations</h3>
+                
+                <div class="warning">
+                    <strong>Important Security Notes:</strong>
+                </div>
+                
+                <ul class="checklist">
+                    <li>Always validate user input before processing</li>
+                    <li>Use strong password policies</li>
+                    <li>Audit user creation and modification logs</li>
+                    <li>Implement proper error handling</li>
+                    <li>Consider using service accounts with minimal privileges</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <h3>Environment Setup</h3>
+                
+                <div class="code-example">
+<pre># Production installation
+npm install --production --only=production
+
+# Environment variables
+export NODE_ENV=production
+export LINUX_USER_LOG_LEVEL=error
+
+# Process management
+pm2 start your-app.js --name "user-management-service"</pre>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <script>
+        function showTab(event, tabId) {
+            // Hide all tab contents
+            var tabContents = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+            }
+            
+            // Remove active class from all tabs
+            var tabs = document.getElementsByClassName("tab");
+            for (var i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove("active");
+            }
+            
+            // Show selected tab content and mark tab as active
+            document.getElementById(tabId).classList.add("active");
+            event.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+</html>

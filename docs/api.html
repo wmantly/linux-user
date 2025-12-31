@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Reference - linux-sys-user</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 2rem 0;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        nav {
+            background: #34495e;
+            padding: 1rem 0;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover, nav a.active {
+            color: #3498db;
+        }
+        
+        main {
+            background: white;
+            margin: 2rem 0;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .api-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+        }
+        
+        .api-section h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .method {
+            background: #f8f9fa;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .method h4 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        
+        code {
+            background: #f1f2f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Menlo', monospace;
+        }
+        
+        pre {
+            background: #f1f2f6;
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        
+        .param {
+            background: #e8f4f8;
+            padding: 0.5rem;
+            margin: 0.5rem 0;
+            border-radius: 4px;
+        }
+        
+        .param strong {
+            color: #2c3e50;
+        }
+        
+        .toc {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        
+        .toc ul {
+            list-style: none;
+        }
+        
+        .toc a {
+            color: #3498db;
+            text-decoration: none;
+            display: block;
+            padding: 0.25rem 0;
+        }
+        
+        .toc a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>API Reference</h1>
+            <p>Complete documentation for linux-sys-user methods</p>
+        </div>
+    </header>
+    
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="api.html" class="active">API Reference</a></li>
+                <li><a href="examples.html">Examples</a></li>
+                <li><a href="getting-started.html">Getting Started</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <main>
+            <div class="toc">
+                <h3>Table of Contents</h3>
+                <ul>
+                    <li><a href="#user-management">User Management</a></li>
+                    <li><a href="#group-management">Group Management</a></li>
+                    <li><a href="#password-management">Password Management</a></li>
+                    <li><a href="#ssh-key-management">SSH Key Management</a></li>
+                    <li><a href="#expiration-management">Expiration Management</a></li>
+                    <li><a href="#validation">Validation</a></li>
+                    <li><a href="#promise-support">Promise Support</a></li>
+                </ul>
+            </div>
+            
+            <section id="user-management" class="api-section">
+                <h3>🔧 User Management</h3>
+                
+                <div class="method">
+                    <h4>addUser(args, callback)</h4>
+                    <p>Creates a new Linux user account.</p>
+                    
+                    <div class="param">
+                        <strong>Parameters:</strong><br>
+                        <code>args</code> - Object or String<br>
+                        &nbsp;&nbsp;• <code>username</code> (String) - User name of the user to be created<br>
+                        &nbsp;&nbsp;• <code>shell</code> (String|null) - Path to login shell, null uses /usr/sbin/nologin<br>
+                        &nbsp;&nbsp;• <code>create_home</code> (Boolean) - Create home directory<br>
+                        &nbsp;&nbsp;• <code>home_dir</code> (String) - Custom home directory path<br>
+                        &nbsp;&nbsp;• <code>expiredate</code> (String|Date) - Account expiration date<br>
+                        &nbsp;&nbsp;• <code>skel</code> (String) - Skeleton directory for home<br>
+                        &nbsp;&nbsp;• <code>system</code> (Boolean) - Create system account<br>
+                        &nbsp;&nbsp;• <code>selinux_user</code> (String) - SELinux user<br>
+                        &nbsp;&nbsp;• <code>other_args</code> (String|Array) - Additional arguments<br>
+                        <code>callback</code> - Function(err, userInfo)
+                    </div>
+                    
+                    <pre><code>// Example usage
+linuxUser.addUser({
+    username: "john",
+    create_home: true,
+    shell: "/bin/bash"
+}, function(err, user) {
+    if (err) console.error(err);
+    else console.log('User created:', user);
+});
+
+// Using just username
+linuxUser.addUser("john", function(err, user) {
+    // Creates user with default settings
+});</code></pre>
+                </div>
+                
+                <div class="method">
+                    <h4>removeUser(username, callback)</h4>
+                    <p>Removes a user account and their home directory.</p>
+                    <div class="param">
+                        <strong>Parameters:</strong><br>
+                        <code>username</code> (String) - Username to remove<br>
+                        <code>callback</code> - Function(err)
+                    </div>
+                    <pre><code>linuxUser.removeUser("john", function(err) {
+    if (err) console.error(err);
+    else console.log('User removed');
+});</code></pre>
+                </div>
+                
+                <div class="method">
+                    <h4>getUsers(callback)</h4>
+                    <p>Retrieves information about all users.</p>
+                    <div class="param">
+                        <strong>Parameters:</strong><br>
+                        <code>callback</code> - Function(err, users)
+                    </div>
+                    <pre><code>linuxUser.getUsers(function(err, users) {
+    if (err) console.error(err);
+    else console.log('All users:', users);
+});</code></pre>
+                </div>
+                
+                <div class="method">
+                    <h4>getUserInfo(username, callback)</h4>
+                    <p>Retrieves information about a specific user.</p>
+                    <div class="param">
+                        <strong>Parameters:</strong><br>
+                        <code>username</code> (String) - Username to query<br>
+                        <code>callback</code> - Function(err, userInfo)
+                    </div>
+                    <pre><code>linuxUser.getUserInfo("root", function(err, user) {
+    if (err) console.error(err);
+    else console.log('User info:', user);
+});</code></pre>
+                </div>
+                
+                <div class="method">
+                    <h4>getUserGroups(username, callback)</h4>
+                    <p>Retrieves all groups that a user belongs to.</p>
+                    <div class="param">
+                        <strong>Parameters:</strong><br>
+                        <code>username</code> (String) - Username to query<br>
+                        <code>callback</code> - Function(err, groups)
+                    </div>
+                    <pre><code>linuxUser.getUserGroups("john", function(err, groups) {
+    if (err) console.error(err);
+    else console.log('User groups:', groups);
+});</code></pre>
+                </div>
+            </section>
+            
+            <section id="group-management" class="api-section">
+                <h3>👥 Group Management</h3>
+                
+                <div class="method">
+                    <h4>addGroup(groupName, callback)</h4>
+                    <p>Creates a new group.</p>
+                    <div class="param">
+                        <strong>Parameters:</strong><br>
+                        <code>groupName</code> (String) - Name of the group to create<br>
+                        <code>callback</code> - Function(err, groupInfo)
+                    </div>
+                    <pre><code>linuxUser.addGroup("developers", function(err, group) {
+    if (err) console.error(err);
+    else console.log('Group created:', group);
+});</code></pre>
+                </div>
+                
+                <div class="method">
+                    <h4>removeGroup(groupName, callback)</h4>
+                    <p>Removes a group.</p>
+                    <div class="param">
+                        <strong>Parameters:</strong><br>
+                        <code>groupName</code> (String) - Name of the group to remove<br>
+                        <code>callback</code> - Function(err)
+                    </div>
+                    <pre><code>linuxUser.removeGroup("developers", function(err) {
+    if (err) console.error(err);
+    else console.log('Group removed');
+});</code></pre>
+                </div>
+                
+                <div class="method">
+                    <h4>getGroups(callback)</h4>
+                    <p>Retrieves information about all groups.</p>
+                    <div class="param">
+                        <strong>Parameters:</strong><br>
+                        <code>callback</code> - Function(err, groups)
+                    </div>
+                    <pre><code>linuxUser.getGroups(function(err, groups) {
+    if (err) console.error(err);
+    else console.log('All groups:', groups);
+});</code></pre>
+                </div>
+                
+                <div class="method">
+                    <h4>getGroupInfo(groupName, callback)</h4>
+                    <p>Retrieves information about a specific group.</p>
+                    <div class="param">
+                        <strong>Parameters:</strong><br>
+                        <code>groupName</code> (String) - Name of the group to query<br>
+                        <code>callback</code> - Function(err, groupInfo)
+                    </div>
+                    <pre><code>linuxUser.getGroupInfo("developers", function(err, group) {
+    if (err) console.error(err);
+    else console.log('Group info:', group);
+});</code></pre>
+                </div>
+                
+                <div class="method">
+                    <h4>addUserToGroup(username, groupName, callback)</h4>
+                    <p>Adds a user to a group.</p>
+                    <div class="param">
+                        <strong>Parameters:</strong><br>
+                        <code>username</code> (String) - Username to add<br>
+                        <code>groupName</code> (String) - Group name to add user to<br>
+                        <code>callback</code> - Function(err)
+                    </div>
+                    <pre><code>linuxUser.addUserToGroup("john", "developers", function(err) {
+    if (err) console.error(err);
+    else console.log('User added to group');
+});</code></pre>
+                </div>
+            </section>
+            
+            <section id="password-management" class="api-section">
+                <h3>🔐 Password Management</h3>
+                
+                <div class="method">
+                    <h4>setPassword(username, password, callback)</h4>
+                    <p>Sets or changes a user's password.</p>
+                    <div class="param">
+                        <strong>Parameters:</strong><br>
+                        <code>username</code> (String) - Username to set password for<br>
+                        <code>password</code> (String) - New password<br>
+                        <code>callback</code> - Function(err)
+                    </div>
+                    <pre><code>linuxUser.setPassword("john", "newpassword123", function(err) {
+    if (err) console.error(err);
+    else console.log('Password set successfully');
+});</code></pre>
+                </div>
+            </section>
+            
+            <section id="ssh-key-management" class="api-section">
+                <h3>🔑 SSH Key Management</h3>
+                
+                <div class="method">
+                    <h4>verifySSHKey(key, callback)</h4>
+                    <p>Validates an SSH key format and extracts information.</p>
+                    <div class="param">
+                        <strong>Parameters:</strong><br>
+                        <code>key</code> (String) - SSH public key<br>
+                        <code>callback</code> - Function(err, keyInfo)
+                    </div>
+                    <pre><code>const sshKey = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDBq...";
+linuxUser.verifySSHKey(sshKey, function(err, info) {
+    if (err) console.error('Invalid key:', err);
+    else console.log('Key info:', info);
+});</code></pre>
+                </div>
+                
+                <div class="method">
+                    <h4>addSSHtoUser(user, key, callback)</h4>
+                    <p>Adds an SSH key to a user's authorized_keys file.</p>
+                    <div class="param">
+                        <strong>Parameters:</strong><br>
+                        <code>user</code> (String) - Username<br>
+                        <code>key</code> (String) - SSH public key<br>
+                        <code>callback</code> - Function(err, success)
+                    </div>
+                    <pre><code>const sshKey = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDBq...";
+linuxUser.addSSHtoUser("john", sshKey, function(err, success) {
+    if (err) console.error(err);
+    else console.log('SSH key added successfully');
+});</code></pre>
+                </div>
+            </section>
+            
+            <section id="expiration-management" class="api-section">
+                <h3>⏰ Expiration Management</h3>
+                
+                <div class="method">
+                    <h4>getExpiration(username, callback)</h4>
+                    <p>Retrieves user expiration and password policy information.</p>
+                    <div class="param">
+                        <strong>Parameters:</strong><br>
+                        <code>username</code> (String) - Username to query<br>
+                        <code>callback</code> - Function(err, expirationInfo)
+                    </div>
+                    <pre><code>linuxUser.getExpiration("john", function(err, info) {
+    if (err) console.error(err);
+    else {
+        console.log('Password last changed:', info.changed);
+        console.log('Password expires:', info.passwordExpires);
+        console.log('Account expires:', info.accountExpires);
+        console.log('Min days between changes:', info.minDays);
+        console.log('Max days validity:', info.maxDays);
+        console.log('Warning days:', info.warnDays);
+    }
+});</code></pre>
+                </div>
+                
+                <div class="method">
+                    <h4>setExpiration(username, args, callback)</h4>
+                    <p>Sets user expiration and password policy.</p>
+                    <div class="param">
+                        <strong>Parameters:</strong><br>
+                        <code>username</code> (String) - Username<br>
+                        <code>args</code> (Object) - Expiration settings<br>
+                        &nbsp;&nbsp;• <code>lastday</code> (Date|String) - Last password change<br>
+                        &nbsp;&nbsp;• <code>expiredate</code> (Date|String) - Account expiration<br>
+                        &nbsp;&nbsp;• <code>inactive</code> (Date|String) - Inactivity period<br>
+                        &nbsp;&nbsp;• <code>minDays</code> (Number) - Min days between password changes<br>
+                        &nbsp;&nbsp;• <code>maxDays</code> (Number) - Max password validity<br>
+                        &nbsp;&nbsp;• <code>warnDays</code> (Number) - Warning period<br>
+                        <code>callback</code> - Function(err, data)
+                    </div>
+                    <pre><code>linuxUser.setExpiration("john", {
+    maxDays: 90,
+    warnDays: 7,
+    inactive: 30
+}, function(err) {
+    if (err) console.error(err);
+    else console.log('Expiration set successfully');
+});</code></pre>
+                </div>
+            </section>
+            
+            <section id="validation" class="api-section">
+                <h3>✅ Validation</h3>
+                
+                <div class="method">
+                    <h4>validateUsername(username)</h4>
+                    <p>Validates whether a string is a valid Linux username.</p>
+                    <div class="param">
+                        <strong>Parameters:</strong><br>
+                        <code>username</code> (String) - Username to validate<br>
+                        <strong>Returns:</strong> Boolean
+                    </div>
+                    <pre><code>if (linuxUser.validateUsername("john_doe")) {
+    console.log('Valid username');
+} else {
+    console.log('Invalid username');
+}</code></pre>
+                </div>
+            </section>
+            
+            <section id="promise-support" class="api-section">
+                <h3>📦 Promise Support</h3>
+                
+                <div class="method">
+                    <h4>.promise(promisifyFunction)</h4>
+                    <p>Returns a version of the API where all methods return Promises.</p>
+                    <div class="param">
+                        <strong>Parameters:</strong><br>
+                        <code>promisifyFunction</code> (Function) - Optional custom promisify function<br>
+                        <strong>Returns:</strong> Object with all methods promisified
+                    </div>
+                    <pre><code>const linuxUser = require('linux-sys-user').promise();
+
+// Using util.promisify (default)
+const linuxUser = require('linux-sys-user').promise();
+
+// Using custom promisify (e.g., Bluebird)
+const bluebird = require('bluebird');
+const linuxUser = require('linux-sys-user').promise(bluebird.promisify);
+
+// Now all methods return promises
+linuxUser.addUser({username: "john", create_home: true})
+    .then(user => console.log('User created:', user))
+    .catch(err => console.error('Error:', err));
+
+// Or with async/await
+async function createUser() {
+    try {
+        const user = await linuxUser.addUser({
+            username: "john",
+            create_home: true,
+            shell: "/bin/bash"
+        });
+        console.log('User created:', user);
+    } catch (err) {
+        console.error('Error:', err);
+    }
+}</code></pre>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <footer style="background: #2c3e50; color: white; text-align: center; padding: 2rem 0; margin-top: 3rem;">
+        <div class="container">
+            <p>&copy; 2024 linux-sys-user. MIT License. Built with ❤️ for the Node.js community.</p>
+        </div>
+    </footer>
+</body>
+</html>

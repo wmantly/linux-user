@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>linux-sys-user Documentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 2rem 0;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        nav {
+            background: #34495e;
+            padding: 1rem 0;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: #3498db;
+        }
+        
+        main {
+            background: white;
+            margin: 2rem 0;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .feature-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .feature-card h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+        
+        code {
+            background: #f1f2f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Menlo', monospace;
+        }
+        
+        pre {
+            background: #f1f2f6;
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        
+        .alert {
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+        
+        .alert-warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+        
+        .btn:hover {
+            background: #2980b9;
+        }
+        
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>linux-sys-user</h1>
+            <p>Node.js module for Linux user and group management</p>
+        </div>
+    </header>
+    
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="api.html">API Reference</a></li>
+                <li><a href="examples.html">Examples</a></li>
+                <li><a href="getting-started.html">Getting Started</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <main>
+            <h2>About linux-sys-user</h2>
+            <p>Easily manage Linux users and groups with a simple Node.js API. Full promise and async/await support out of the box, ES5 compatibility, and <strong>zero dependencies</strong>!</p>
+            
+            <div class="alert alert-warning">
+                <strong>⚠️ Note:</strong> This module must be running on Linux and requires root user privileges for most operations.
+            </div>
+            
+            <h3>Key Features</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>🔧 User Management</h3>
+                    <p>Create, modify, and delete Linux users with comprehensive options including home directory creation, shell selection, and expiration settings.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>👥 Group Management</h3>
+                    <p>Manage Linux groups, add users to groups, and handle group permissions with simple API calls.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>🔑 SSH Key Management</h3>
+                    <p>Add and verify SSH keys for users with automatic directory structure creation and proper permissions.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>⏰ Expiration Control</h3>
+                    <p>Set and manage user account expiration, password policies, and inactivity settings using the chage command.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>📦 Promise Support</h3>
+                    <p>Built-in promise support with util.promisify, making it easy to use with async/await syntax.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>🎯 Zero Dependencies</h3>
+                    <p>Pure Node.js implementation with no external runtime dependencies, ensuring minimal footprint and maximum compatibility.</p>
+                </div>
+            </div>
+            
+            <h3>Quick Start</h3>
+            <pre><code>const linuxUser = require('linux-sys-user');
+
+// Add a new user
+linuxUser.addUser({
+    username: "john",
+    create_home: true,
+    shell: "/bin/bash"
+}, function(err, user) {
+    if (err) {
+        console.error('Error:', err);
+    } else {
+        console.log('User created:', user);
+    }
+});
+
+// Using promises
+const linuxUserPromise = require('linux-sys-user').promise();
+
+async function createUser() {
+    try {
+        const user = await linuxUserPromise.addUser({
+            username: "john",
+            create_home: true,
+            shell: "/bin/bash"
+        });
+        console.log('User created:', user);
+    } catch (err) {
+        console.error('Error:', err);
+    }
+}</code></pre>
+            
+            <h3>Installation</h3>
+            <pre><code>npm install linux-sys-user --save</code></pre>
+            
+            <div style="text-align: center; margin: 2rem 0;">
+                <a href="getting-started.html" class="btn">Get Started</a>
+                <a href="api.html" class="btn" style="background: #27ae60; margin-left: 1rem;">View API</a>
+            </div>
+        </main>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 linux-sys-user. MIT License. Built with ❤️ for the Node.js community.</p>
+        </div>
+    </footer>
+</body>
+</html>

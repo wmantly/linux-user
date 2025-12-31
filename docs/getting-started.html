@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting Started - linux-sys-user</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 2rem 0;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        nav {
+            background: #34495e;
+            padding: 1rem 0;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover, nav a.active {
+            color: #3498db;
+        }
+        
+        main {
+            background: white;
+            margin: 2rem 0;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .step {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .step h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+        
+        code {
+            background: #f1f2f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Menlo', monospace;
+        }
+        
+        pre {
+            background: #f1f2f6;
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        
+        .alert {
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+        
+        .alert-warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+        }
+        
+        .alert-info {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+        
+        .alert-success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        
+        .prerequisite {
+            background: #e8f4f8;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        
+        .prerequisite h4 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        
+        ul, ol {
+            margin-left: 2rem;
+            margin-top: 0.5rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        
+        .code-block .comment {
+            color: #68d391;
+        }
+        
+        .code-block .keyword {
+            color: #90cdf4;
+        }
+        
+        .code-block .string {
+            color: #fbb6ce;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Getting Started</h1>
+            <p>Quick setup guide for linux-sys-user</p>
+        </div>
+    </header>
+    
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="api.html">API Reference</a></li>
+                <li><a href="examples.html">Examples</a></li>
+                <li><a href="getting-started.html" class="active">Getting Started</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <main>
+            <h2>Quick Start Guide</h2>
+            <p>This guide will help you get up and running with linux-sys-user in just a few minutes.</p>
+            
+            <div class="alert alert-warning">
+                <strong>⚠️ Important:</strong> This module requires root privileges and must run on Linux. Most operations will fail if not running as root.
+            </div>
+            
+            <div class="prerequisite">
+                <h4>Prerequisites</h4>
+                <ul>
+                    <li>Linux operating system</li>
+                    <li>Node.js 6.0.0 or higher</li>
+                    <li>Root access (for most operations)</li>
+                    <li>Basic understanding of Linux user management</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <h3>Step 1: Installation</h3>
+                <p>Install the module using npm:</p>
+                <div class="code-block">
+                    <span class="comment"># Install from npm</span><br>
+                    npm install linux-sys-user --save<br><br>
+                    <span class="comment"># Or install globally for command-line usage</span><br>
+                    npm install -g linux-sys-user
+                </div>
+            </div>
+            
+            <div class="step">
+                <h3>Step 2: Basic Usage</h3>
+                <p>Here's a simple example to get you started:</p>
+                <div class="code-block">
+                    <span class="keyword">const</span> linuxUser = <span class="keyword">require</span>(<span class="string">'linux-sys-user'</span>);<br><br>
+                    <span class="comment">// Add a new user</span><br>
+                    linuxUser.addUser({<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="string">username</span>: <span class="string">"john"</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="string">create_home</span>: <span class="keyword">true</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="string">shell</span>: <span class="string">"/bin/bash"</span><br>
+                    }, <span class="keyword">function</span>(err, user) {<br>
+                    &nbsp;&nbsp;<span class="keyword">if</span> (err) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> console.error(<span class="string">'Error creating user:'</span>, err);<br>
+                    &nbsp;&nbsp;}<br>
+                    &nbsp;&nbsp;console.log(<span class="string">'User created successfully:'</span>, user);<br>
+                    });
+                </div>
+            </div>
+            
+            <div class="step">
+                <h3>Step 3: Using Promises</h3>
+                <p>For cleaner async/await code:</p>
+                <div class="code-block">
+                    <span class="keyword">const</span> linuxUser = <span class="keyword">require</span>(<span class="string">'linux-sys-user'</span>).promise();<br><br>
+                    <span class="comment">// Using async/await</span><br>
+                    <span class="keyword">async function</span> createUser() {<br>
+                    &nbsp;&nbsp;<span class="keyword">try</span> {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">const</span> user = <span class="keyword">await</span> linuxUser.addUser({<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">username</span>: <span class="string">"jane"</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">create_home</span>: <span class="keyword">true</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">shell</span>: <span class="string">"/bin/bash"</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;});<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;console.log(<span class="string">'User created:'</span>, user);<br>
+                    &nbsp;&nbsp;} <span class="keyword">catch</span> (err) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;console.error(<span class="string">'Error:'</span>, err);<br>
+                    &nbsp;&nbsp;}<br>
+                    }<br><br>
+                    createUser();
+                </div>
+            </div>
+            
+            <div class="step">
+                <h3>Step 4: Common Operations</h3>
+                <p>Here are some common operations you'll use frequently:</p>
+                <div class="code-block">
+                    <span class="comment">// Get all users</span><br>
+                    linuxUser.getUsers(<span class="keyword">function</span>(err, users) {<br>
+                    &nbsp;&nbsp;console.log(<span class="string">'All users:'</span>, users);<br>
+                    });<br><br>
+                    
+                    <span class="comment">// Get specific user info</span><br>
+                    linuxUser.getUserInfo(<span class="string">"root"</span>, <span class="keyword">function</span>(err, user) {<br>
+                    &nbsp;&nbsp;console.log(<span class="string">'Root user info:'</span>, user);<br>
+                    });<br><br>
+                    
+                    <span class="comment">// Set a password</span><br>
+                    linuxUser.setPassword(<span class="string">"john"</span>, <span class="string">"newpassword123"</span>, <span class="keyword">function</span>(err) {<br>
+                    &nbsp;&nbsp;<span class="keyword">if</span> (!err) console.log(<span class="string">'Password set successfully'</span>);<br>
+                    });<br><br>
+                    
+                    <span class="comment">// Add user to group</span><br>
+                    linuxUser.addUserToGroup(<span class="string">"john"</span>, <span class="string">"developers"</span>, <span class="keyword">function</span>(err) {<br>
+                    &nbsp;&nbsp;<span class="keyword">if</span> (!err) console.log(<span class="string">'User added to group'</span>);<br>
+                    });
+                </div>
+            </div>
+            
+            <div class="step">
+                <h3>Step 5: Error Handling</h3>
+                <p>Always handle errors properly:</p>
+                <div class="code-block">
+                    <span class="keyword">function</span> createUserSafely(username) {<br>
+                    &nbsp;&nbsp;<span class="comment">// Validate username first</span><br>
+                    &nbsp;&nbsp;<span class="keyword">if</span> (!linuxUser.validateUsername(username)) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> console.error(<span class="string">'Invalid username:'</span>, username);<br>
+                    &nbsp;&nbsp;}<br><br>
+                    
+                    &nbsp;&nbsp;linuxUser.addUser({<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="string">username</span>: username,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="string">create_home</span>: <span class="keyword">true</span><br>
+                    &nbsp;&nbsp;}, <span class="keyword">function</span>(err, user) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span> (err) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// Handle specific error types</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span> (err.message.includes(<span class="string">'Permission denied'</span>)) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;console.error(<span class="string">'Must run as root'</span>);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} <span class="keyword">else if</span> (err.message.includes(<span class="string">'already exists'</span>)) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;console.error(<span class="string">'User already exists'</span>);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} <span class="keyword">else</span> {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;console.error(<span class="string">'Unknown error:'</span>, err);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;} <span class="keyword">else</span> {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;console.log(<span class="string">'User created successfully'</span>, user);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    &nbsp;&nbsp;});<br>
+                    }
+                </div>
+            </div>
+            
+            <div class="alert alert-info">
+                <h4>💡 Pro Tips</h4>
+                <ul>
+                    <li>Always validate usernames using <code>validateUsername()</code> before operations</li>
+                    <li>Use promise version for cleaner async code</li>
+                    <li>Handle permission errors gracefully</li>
+                    <li>Test your code in a safe environment first</li>
+                    <li>Consider using system accounts for services</li>
+                </ul>
+            </div>
+            
+            <div class="alert alert-success">
+                <h4>✅ Next Steps</h4>
+                <p>Now that you have the basics down, explore:</p>
+                <ul>
+                    <li><a href="api.html">Complete API Reference</a> - See all available methods</li>
+                    <li><a href="examples.html">Code Examples</a> - Real-world usage patterns</li>
+                    <li><a href="https://github.com/wmantly/linux-user">GitHub Repository</a> - Source code and issues</li>
+                </ul>
+            </div>
+        </main>
+    </div>
+    
+    <footer style="background: #2c3e50; color: white; text-align: center; padding: 2rem 0; margin-top: 3rem;">
+        <div class="container">
+            <p>&copy; 2024 linux-sys-user. MIT License. Built with ❤️ for the Node.js community.</p>
+        </div>
+    </footer>
+</body>
+</html>
