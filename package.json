@@ -1,6 +1,6 @@
 {
   "name": "linux-sys-user",
-  "version": "1.2.0",
+  "version": "1.1.9",
   "description": "Node module for Linux user and group control.",
   "author": [
     {
@@ -28,9 +28,7 @@
     "pam",
     "ssh-keygen",
     "ssh",
-    "keys",
-    "ts",
-    "typescript"
+    "keys"
   ],
   "scripts": {
     "test": "mocha",
