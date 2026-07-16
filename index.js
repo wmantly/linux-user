@@ -15,4 +15,8 @@ if (!(process.getuid && process.getuid() === 0)) {
 var lib = require("./lib/user");
 lib.promise = require("./lib/promise");
 
+// Convenience accessor for the read-only (non-root safe) subset. For an import
+// path that also suppresses the root warning, use `require('linux-user/non-root')`.
+lib.nonRoot = require("./non-root");
+
 module.exports = lib;

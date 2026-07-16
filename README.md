@@ -27,19 +27,51 @@ current user will also work with out root.
 
 The testing libraries only work with NodeJS 6 and up.
 
-UPDATE!
-
-Newer version of NPM does not allows executing as root, if you run into this
-issue, call mocha directly:
+Tests that modify system state require root. When the suite is **not** run as
+root, those tests are automatically skipped and the read-only tests still run,
+so `npm test` passes in CI and on dev machines without root. To exercise the
+full suite, run as root:
 
 ```bash
-./node_modules/mocha/bin/mocha 
+sudo ./node_modules/mocha/bin/mocha
 ```
+
+Newer version of NPM does not allow executing as root, if you run into this
+issue, call mocha directly as shown above.
+
+## Non-root usage
+
+Most functions that modify the system require root, but the read-only
+functions only read `/etc/passwd` and `/etc/group` (world-readable) or operate
+on the calling user, so they work without root.
+
+Importing the main module prints a warning when it is not running as root. If
+you only need the read-only functions you can import the non-root path, which
+exposes only those functions and emits **no** root warning:
+
+```js
+// read-only subset, no root warning, safe to use without root
+var linuxUser = require('linux-user/non-root');
+
+linuxUser.getUsers(function (err, users) {
+  // ...
+});
+```
+
+The non-root export exposes: `getUsers`, `getGroups`, `getUserInfo`,
+`getUserGroups`, `getExpiration`, `validateUsername`, and `verifySSHKey`, plus
+a read-only `promise()` factory. The same set is also available as
+`require('linux-user').nonRoot` for convenience (the main import still emits the
+root warning in that case).
 
 ## Usage
 
 This works with your normal require and execute callback functions. Every method
 takes a callback and is non-blocking.
+
+All callbacks follow the Node.js convention `(err, result)`. Errors are always
+`Error` objects (or `null` on success) -- they are never passed as strings or
+booleans.
 
 ### Examples
 
@@ -122,6 +154,17 @@ var linuxUser = require('linux-sys-user').promise(bluebird.promisify);
 version of NodeJS( less then 8 ) you will need something like it.
 
 This will work with `.then()`, `.catch()` and the `async`/`await` pattern.
+
+Synchronous helpers such as `validateUsername` are **not** promisified -- they
+are passed through unchanged and still return their value directly (promisifying
+them would produce a promise that never settles). The read-only functions are
+available as a promise set too:
+
+```js
+var p = require('linux-user/non-root').promise();
+var users = await p.getUsers();
+var valid = p.validateUsername('bob'); // still synchronous, returns boolean
+```
 
 ```js
 
