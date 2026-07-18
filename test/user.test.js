@@ -34,6 +34,13 @@ describe("user.js", function () {
     it("should accept a valid username", function () {
       linuxUser.validateUsername("bob").should.be.true;
     });
+    it("should accept a 32-character username", function () {
+      // Linux login names may be up to 32 characters long.
+      linuxUser.validateUsername("a1234567890123456789012345678901").should.be.true;
+    });
+    it("should reject a 33-character username", function () {
+      linuxUser.validateUsername("a12345678901234567890123456789012").should.be.false;
+    });
   });
 
   describe("getUsers", function () {
@@ -253,6 +260,16 @@ describe("user.js", function () {
         }
       );
     });
+
+    it("should accept a username string shortcut", function (done) {
+      linuxUser.addUser(testUsername, function (err, user) {
+        if (err) {
+          return done(err);
+        }
+        user.username.should.equal(testUsername);
+        done();
+      });
+    });
   });
 
   describe("getGroups", function () {
@@ -379,7 +396,50 @@ describe("user.js", function () {
                   if (err) {
                     return done(err);
                   }
+                  data.trim().should.equal(testSSHKeyGood);
                   done();
+                }
+              );
+            });
+          }
+        );
+      });
+
+      it("should not add the same SSH key twice", function (done) {
+        linuxUser.addUser(
+          { username: testUsername, create_home: true },
+          function (err, user) {
+            if (err) {
+              return done(err);
+            }
+
+            linuxUser.addSSHtoUser(testUsername, testSSHKeyGood, function (err) {
+              if (err) {
+                return done(err);
+              }
+
+              linuxUser.addSSHtoUser(
+                testUsername,
+                testSSHKeyGood,
+                function (err, success) {
+                  if (err) {
+                    return done(err);
+                  }
+                  success.should.be.true;
+
+                  fs.readFile(
+                    user.homedir + "/.ssh/authorized_keys",
+                    "utf8",
+                    (err, data) => {
+                      if (err) {
+                        return done(err);
+                      }
+                      // File should contain exactly one copy of the key.
+                      data.trim().should.equal(testSSHKeyGood);
+                      data.trim().split("\n").length.should.equal(1);
+                      done();
+                    }
+                  );
                 }
               );
             });

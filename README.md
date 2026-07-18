@@ -265,6 +265,9 @@ console.log(user);
 
 	* callback function(err, userInfo)
 
+  A string may be passed instead of an object as a shortcut for
+  `{ username: string, create_home: true }`.
+
 * linuxUser.getExpiration(username, callback)
 
   Gets expiration information about a user, returns an Object:
@@ -348,7 +351,10 @@ console.log(user);
 	* username String
 	* password String
 	* callback function(err)
-	
+
+  Uses `chpasswd` to set the password non-interactively. The system must
+  have `chpasswd` available (usually provided by `shadow-utils`).
+
 * linuxUser.addGroup(groupname, callback)
 	* groupname String
 	* callback function(err, groupInfo)
@@ -385,6 +391,9 @@ console.log(user);
 	* user String
 	* key String
 	* callback function(err, true)
+
+  The key is appended to the user's `~/.ssh/authorized_keys` only if it is
+  not already present.
 
 
 ### License

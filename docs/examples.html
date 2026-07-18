@@ -207,6 +207,7 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="api.html">API Reference</a></li>
                 <li><a href="examples.html" class="active">Examples</a></li>
+                <li><a href="getting-started.html">Getting Started</a></li>
                 <li><a href="installation.html">Installation</a></li>
                 <li><a href="https://github.com/wmantly/linux-user" target="_blank">GitHub</a></li>
             </ul>
@@ -488,7 +489,7 @@ linuxUser.addSSHtoUser("john_doe", sshKey, function (err, success) {
                 </div>
                 
                 <div class="note">
-                    <strong>Note:</strong> The addSSHtoUser method automatically creates the .ssh directory with proper permissions (700) and sets the authorized_keys file permissions to 600.
+                    <strong>Note:</strong> The addSSHtoUser method automatically creates the .ssh directory with proper permissions (700) and sets the authorized_keys file permissions to 600. The key is only appended if it is not already present, so calling it multiple times with the same key will not create duplicates.
                 </div>
             </div>
             

@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.2] - 2026-07-18
+
+### Fixed
+- `setPassword` now uses `chpasswd` for reliable non-interactive password updates.
+- `validateUsername` now accepts Linux login names up to 32 characters long.
+- `addSSHtoUser` no longer appends duplicate keys to `authorized_keys`.
+- `removeUser` and `addUserToGroup` now use `spawnWrapper` for consistent error
+  handling and timeout support.
+- Direct `require('linux-sys-user/lib/promise')` now enforces the Linux platform
+  guard instead of bypassing it.
+- Documentation and GitHub Pages navigation updated to reflect the current API,
+  including `chpasswd` and the `addUser` string shortcut.
+
 ## [2.0.0] - 2026-07-16
 
 ### Added
