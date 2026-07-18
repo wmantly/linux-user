@@ -1,6 +1,6 @@
 {
   "name": "linux-sys-user",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Node.js module for Linux user and group management with zero dependencies",
   "main": "index.js",
   "types": "index.d.ts",

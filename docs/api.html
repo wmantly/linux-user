@@ -154,6 +154,7 @@
                 <li><a href="api.html" class="active">API Reference</a></li>
                 <li><a href="examples.html">Examples</a></li>
                 <li><a href="getting-started.html">Getting Started</a></li>
+                <li><a href="installation.html">Installation</a></li>
             </ul>
         </div>
     </nav>
@@ -182,7 +183,7 @@
                     
                     <div class="param">
                         <strong>Parameters:</strong><br>
-                        <code>args</code> - Object or String<br>
+                        <code>args</code> - Object or String. When a string is passed it is treated as <code>{ username: string, create_home: true }</code>.<br>
                         &nbsp;&nbsp;• <code>username</code> (String) - User name of the user to be created<br>
                         &nbsp;&nbsp;• <code>shell</code> (String|null) - Path to login shell, null uses /usr/sbin/nologin<br>
                         &nbsp;&nbsp;• <code>create_home</code> (Boolean) - Create home directory<br>
@@ -346,7 +347,7 @@ linuxUser.addUser("john", function(err, user) {
                 
                 <div class="method">
                     <h4>setPassword(username, password, callback)</h4>
-                    <p>Sets or changes a user's password.</p>
+                    <p>Sets or changes a user's password using <code>chpasswd</code>.</p>
                     <div class="param">
                         <strong>Parameters:</strong><br>
                         <code>username</code> (String) - Username to set password for<br>
@@ -380,7 +381,7 @@ linuxUser.verifySSHKey(sshKey, function(err, info) {
                 
                 <div class="method">
                     <h4>addSSHtoUser(user, key, callback)</h4>
-                    <p>Adds an SSH key to a user's authorized_keys file.</p>
+                    <p>Adds an SSH key to a user's authorized_keys file. If the key already exists, the call succeeds without creating a duplicate.</p>
                     <div class="param">
                         <strong>Parameters:</strong><br>
                         <code>user</code> (String) - Username<br>
@@ -509,7 +510,7 @@ async function createUser() {
     
     <footer style="background: #2c3e50; color: white; text-align: center; padding: 2rem 0; margin-top: 3rem;">
         <div class="container">
-            <p>&copy; 2024 linux-sys-user. MIT License. Built with ❤️ for the Node.js community.</p>
+            <p>&copy; 2026 linux-sys-user. MIT License. Built with ❤️ for the Node.js community.</p>
         </div>
     </footer>
 </body>
