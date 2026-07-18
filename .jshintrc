@@ -90,6 +90,8 @@
       "before": true,
       "afterEach": true,
       "beforeEach": true,
-      "after": true
+      "after": true,
+      // should.js (assertion library) exposes `should` as a global
+      "should": true
     }
 }
